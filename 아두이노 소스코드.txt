@@ -1,0 +1,151 @@
+#include <Wire.h>
+#include <SoftwareSerial.h> // 소프트웨어 Serial 통신 라이브러리 사용
+#include <Adafruit_AMG88xx.h>
+//#include <Keyboard.h>
+
+SoftwareSerial VoiceModule(2, 3);
+
+// 온도 센서
+char temp_case = 0;
+char chars[] = {'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'F'};
+Adafruit_AMG88xx amg;
+
+float pixels[AMG88xx_PIXEL_ARRAY_SIZE];
+
+// 가스 센서
+char gas_case = 0; 
+int gasPin = A0;
+
+// 음성 인식
+char voice_case = 0;
+int voice_recogn = 0;
+
+void setup()
+{
+  Serial.begin(9600); // 통신 속도 9600bps로 PC와 시리얼 통신 시작
+  VoiceModule.begin(9600); // 통신 속도 9600bps로 모듈과 시리얼 통신 시작
+  //Keyboard.begin();
+
+  bool status = amg.begin();
+  
+  if (!status)
+  {
+    Serial.println("There's no Temparature Sensor.");
+    while (1);
+  }
+  Serial.println("Temparature Sensor READY");
+  
+  delay(1000);
+  
+  VoiceModule.write(0xAA); // compact mode 사용
+  VoiceModule.write(0x37);
+
+  delay(1000);
+  
+  VoiceModule.write(0xAA); // 그룹1 음성 명령어 imported
+  VoiceModule.write(0x21);
+
+  Serial.println("Voice Sensor READY");
+
+}
+
+void loop()
+{
+
+    Serial.println("TEMPERATURE : ");
+
+    amg.readPixels(pixels);
+    int temp;
+    int Tmin = 1000, Tmax = 0;
+     
+    for (int i = 1; i <= AMG88xx_PIXEL_ARRAY_SIZE; i++)
+    {
+      temp = pixels[i - 1] * 10;
+      Tmin = Tmin > temp ? temp : Tmin;
+      Tmax = Tmax < temp ? temp : Tmax;
+    }
+    
+    Serial.print("[");
+    
+    for (int i = AMG88xx_PIXEL_ARRAY_SIZE; i >= 1; i--)
+    {
+      int temp = (pixels[i - 1] * 10);
+      int idx = map(temp, Tmin, Tmax, 0, 21);
+    
+      if ( i % 8 == 0 ) 
+      {
+        Serial.println();
+      }
+      
+      Serial.print(chars[idx]);
+      Serial.print(", ");
+      
+      if (chars[idx] == 'F')
+      {
+        temp_case = 1;
+      }
+    }
+    
+    Serial.println("]");
+    
+    Serial.println();
+    
+    Serial.print("GAS : ");
+    Serial.println(analogRead(gasPin));
+
+    if (analogRead(gasPin) >= 600)
+    {
+      gas_case = 1;
+    }
+    
+    Serial.println();
+    
+    Serial.print("VOICE INPUT : ");
+    voice_recogn = VoiceModule.read();
+
+    if(voice_recogn == 0x11)
+    {
+      Serial.println("YES"); // 
+      voice_case = 1;
+    }
+
+    else if(voice_recogn == 0x12)
+    {
+      Serial.println("NO"); //아뇨
+      voice_case = 1;
+    }
+
+    else if(voice_recogn == 0x13)
+    {
+      Serial.println("HELP"); //살려줘
+      voice_case = 1;
+    }
+
+    else if(voice_recogn == 0x14)
+    {
+      Serial.println("FIRE"); //불이야
+      voice_case = 1;
+    }
+
+    else if(voice_recogn == 0x15)
+    {
+      Serial.println("THEFT"); //도둑이야
+      voice_case = 1;
+    }
+
+    else
+    {
+      Serial.println("No voice");
+      voice_case = 0;
+    }
+
+    if(temp_case == 1 || gas_case == 1 || voice_case == 1)
+    {
+      //Keyboard.println("sh mjpg.sh");
+      temp_case = 0;
+      gas_case = 0;
+      voice_case = 0;
+    }
+
+    delay(1000);
+}
