@@ -181,12 +181,12 @@ void loop()
     delay(1000);
 }
 ```
-- 소프트웨어(Python)<
+- 소프트웨어(Python)<br>
 ![image](https://user-images.githubusercontent.com/59759468/105462004-62c61100-5cd1-11eb-88ef-0a87ecf62960.png)
 ![image](https://user-images.githubusercontent.com/59759468/105462059-72455a00-5cd1-11eb-8718-44398f09161b.png)
 ![image](https://user-images.githubusercontent.com/59759468/105462095-80937600-5cd1-11eb-8ea2-9eeb009de417.png)
 ![image](https://user-images.githubusercontent.com/59759468/105462126-8ab57480-5cd1-11eb-8599-64e22c5ffa17.png)
-![image](https://user-images.githubusercontent.com/59759468/105462143-8f7a2880-5cd1-11eb-87ca-0e6a5c92d059.png)
+![image](https://user-images.githubusercontent.com/59759468/105462447-fac3fa80-5cd1-11eb-97ce-52565a111635.png)
 
 - 소프트웨어(django 서버 구축 및 Kakao API 사용자 알림 서비스)<br>
 ![image](https://user-images.githubusercontent.com/59759468/105461464-9bb1b600-5cd0-11eb-83f9-bb8661d46fdb.png)
