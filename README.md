@@ -27,7 +27,7 @@
 - 하드웨어<br>
 ![image](https://user-images.githubusercontent.com/59759468/105460967-e7b02b00-5ccf-11eb-9bd4-81afc09fee32.png)
 
-- 소프트웨어(아두이노)<br>
+- 소프트웨어(Arduino)<br>
 ```
 #include <Wire.h>
 #include <SoftwareSerial.h> // 소프트웨어 Serial 통신 라이브러리 사용
@@ -181,5 +181,16 @@ void loop()
     delay(1000);
 }
 ```
+- 소프트웨어(Python)<
+![image](https://user-images.githubusercontent.com/59759468/105462004-62c61100-5cd1-11eb-88ef-0a87ecf62960.png)
+![image](https://user-images.githubusercontent.com/59759468/105462059-72455a00-5cd1-11eb-8718-44398f09161b.png)
+![image](https://user-images.githubusercontent.com/59759468/105462095-80937600-5cd1-11eb-8ea2-9eeb009de417.png)
+![image](https://user-images.githubusercontent.com/59759468/105462126-8ab57480-5cd1-11eb-8599-64e22c5ffa17.png)
+![image](https://user-images.githubusercontent.com/59759468/105462143-8f7a2880-5cd1-11eb-87ca-0e6a5c92d059.png)
 
 - 소프트웨어(django 서버 구축 및 Kakao API 사용자 알림 서비스)<br>
+![image](https://user-images.githubusercontent.com/59759468/105461464-9bb1b600-5cd0-11eb-83f9-bb8661d46fdb.png)
+![image](https://user-images.githubusercontent.com/59759468/105461467-9e141000-5cd0-11eb-8018-2f0ce3659886.png)
+![image](https://user-images.githubusercontent.com/59759468/105461509-ab30ff00-5cd0-11eb-86ab-ff848b69fa66.png)
+![image](https://user-images.githubusercontent.com/59759468/105461520-b1bf7680-5cd0-11eb-858b-3c1c91d49d4d.png)
+
